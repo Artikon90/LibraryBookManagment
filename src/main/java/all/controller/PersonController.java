@@ -1,6 +1,6 @@
 package all.controller;
 
-import all.dao.BookDAO;
+//import all.dao.BookDAO;
 import all.dao.PersonDAO;
 import all.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +15,11 @@ import javax.validation.Valid;
 @RequestMapping("/people")
 public class PersonController {
     private final PersonDAO personDAO;
-    private final BookDAO bookDAO;
+    // private final BookDAO bookDAO;
 
     @Autowired
-    public PersonController(PersonDAO personDAO, BookDAO bookDAO) {
+    public PersonController(PersonDAO personDAO) {
         this.personDAO = personDAO;
-        this.bookDAO = bookDAO;
     }
 
     @GetMapping("/add")

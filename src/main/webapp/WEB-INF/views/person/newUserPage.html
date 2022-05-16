@@ -6,11 +6,11 @@
 </head>
 <body>
 <form th:method="POST" th:action="@{/people}" th:object="${userToAdd}">
-    <label style="color:orange" for="name">Input new name for user: </label>
+    <label style="color:orange" for="name">Input name for new user: </label>
     <input type="text" th:field="*{person_name}" id="name"/>
     <div style="color:red" th:if="${#fields.hasErrors('person_name')}" th:errors="*{person_name}">error text</div>
     <br />
-    <label style="color:orange" for="age">Input new user age: </label>
+    <label style="color:orange" for="age">Input year of birth: </label>
     <input type="text" th:field="*{year_birth}" id="age"/>
     <div style="color:red" th:if="${#fields.hasErrors('year_birth')}" th:errors="*{year_birth}">error text</div>
     <br />

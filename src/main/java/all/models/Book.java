@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -27,4 +28,6 @@ public class Book {
 
     @Min(value = 1800, message = "Release year should be later than 1800")
     private int release_date;
+
+    private Optional<Integer> person_id;
 }
