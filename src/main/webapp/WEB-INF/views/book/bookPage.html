@@ -10,6 +10,12 @@
 <p th:text="${bookById.getAuthor()}">value</p>
 <p th:text="${bookById.getRelease_date()}">value</p>
 <br/>
+<hr/>
+<div th:switch="${bookById.getPerson_id()}">
+<p th:case="bookById.getPerson_id() == null">Book is free</p>
+<p th:case="*">Book already owned</p>
+</div>
+<hr/>
 <button>
     <a th:href="@{/book/{id}/edit(id=${bookById.getBook_id()})}">Edit this book</a>
 </button>
