@@ -1,5 +1,6 @@
 package all.dao;
 
+import all.models.Book;
 import all.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -37,5 +38,10 @@ public class PersonDAO {
     public void editUser(int id, Person person) {
         jdbcTemplate.update("UPDATE person SET person_name = ?, year_birth = ? WHERE person_id = ?",
                 person.getPerson_name(), person.getYear_birth(), id);
+    }
+
+    public List<Book> getBookByPerson(int id) {
+        return jdbcTemplate.query("SELECT * FROM Book WHERE person_id = ?", new BeanPropertyRowMapper<>(Book.class)
+        , id);
     }
 }

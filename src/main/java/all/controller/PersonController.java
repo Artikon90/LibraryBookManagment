@@ -1,6 +1,5 @@
 package all.controller;
 
-//import all.dao.BookDAO;
 import all.dao.PersonDAO;
 import all.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import javax.validation.Valid;
 @RequestMapping("/people")
 public class PersonController {
     private final PersonDAO personDAO;
-    // private final BookDAO bookDAO;
 
     @Autowired
     public PersonController(PersonDAO personDAO) {
@@ -45,6 +43,7 @@ public class PersonController {
     @GetMapping("/{id}")
     public String viewUserById(@PathVariable("id") int id, Model model) {
         model.addAttribute("userById", personDAO.getPersonById(id));
+        model.addAttribute("userBooks", personDAO.getBookByPerson(id));
         return "person/userPage";
     }
 

@@ -2,12 +2,24 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>User page</title>
 </head>
 <body>
-<p th:text="${userById.getPerson_name()}">value</p>
-<p th:text="${userById.getPerson_id()}">value</p>
-<p th:text="${userById.getYear_birth()}">value</p>
+<p th:text="'Имя: ' + ${userById.getPerson_name()}">value</p>
+<p th:text="'Id : ' + ${userById.getPerson_id()}">value</p>
+<p th:text="'Год рождения: ' + ${userById.getYear_birth()}">value</p>
+<hr/>
+<div th:if="${userBooks.isEmpty()}">
+    <p>У пользователя нет книг</p>
+</div>
+<div th:if="${!userBooks.isEmpty()}">
+    <b>Книги, которые пользователь брал: </b>
+    <br/>
+    <div th:each="book : ${userBooks}">
+        <a th:href="@{/book/{id}(id=${book.getBook_id()})}" th:text="${book.getBook_name() + ' , ' + book.getAuthor() + ' , ' + book.getRelease_date()}">book</a>
+    </div>
+</div>
 <br/>
 <button>
     <a th:href="@{/people/{id}/edit(id=${userById.getPerson_id()})}">Edit this user</a>
@@ -15,5 +27,8 @@
 <form th:method="DELETE" th:action="@{/people/{id}(id=${userById.getPerson_id()})}">
     <input type="submit" value="Delete this user"/>
 </form>
+<button>
+    <a th:href="@{/}">Вернуться на главную</a>
+</button>
 </body>
 </html>

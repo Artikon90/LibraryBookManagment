@@ -2,18 +2,33 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>User page</title>
 </head>
 <body>
-<p th:text="${bookById.getBook_id()}">value</p>
-<p th:text="${bookById.getBook_name()}">value</p>
-<p th:text="${bookById.getAuthor()}">value</p>
-<p th:text="${bookById.getRelease_date()}">value</p>
+<p th:text="'Айди книги: ' + ${bookById.getBook_id()}">value</p>
+<p th:text="'Название книги: ' + ${bookById.getBook_name()}">value</p>
+<p th:text="'Имя автора ' + ${bookById.getAuthor()}">value</p>
+<p th:text="'Дата издания: ' + ${bookById.getRelease_date()}">value</p>
 <br/>
 <hr/>
-<div th:switch="${bookById.getPerson_id()}">
-<p th:case="bookById.getPerson_id() == null">Book is free</p>
-<p th:case="*">Book already owned</p>
+<div th:if="${owner}">
+    <span>Книга сейчас занята </span> <span th:text="${owner.getPerson_name()}">Name</span>
+    <form th:method="PATCH" th:action="@{/book/{id}/free(id = ${bookById.getBook_id()})}">
+        <input type="submit" value="Освободить">
+    </form>
+</div>
+<div th:if="${people}">
+    <span>Книга свободна, назначить кому-то? </span>
+    <form th:method="PATCH" th:action="@{/book/{id}/assign(id = ${bookById.getBook_id()})}">
+        <label for="person"></label>
+        <select th:object="${person}" th:field="*{person_id}" id = "person">
+            <option th:each="person : ${people}" th:value="${person.getPerson_id()}"
+                    th:text="${person.getPerson_name()}">
+            </option>
+        </select>
+        <input type="submit" value="Назначить">
+    </form>
 </div>
 <hr/>
 <button>
@@ -22,5 +37,8 @@
 <form th:method="DELETE" th:action="@{/book/{id}(id=${bookById.getBook_id()})}">
     <input type="submit" value="Delete this book"/>
 </form>
+<button>
+    <a th:href="@{/}">Вернуться на главную</a>
+</button>
 </body>
 </html>
